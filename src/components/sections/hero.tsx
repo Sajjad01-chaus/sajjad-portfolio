@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Mail, FileText } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/brand-icons";
 import { HeroNav } from "@/components/hero-nav";
-import { profile, links } from "@/lib/site";
+import { profile, links, stats } from "@/lib/site";
 
 /** Emphasised phrase inside the hero prose (white against the muted body). */
 function Em({ children }: { children: React.ReactNode }) {
@@ -65,9 +65,10 @@ export function Hero() {
             className="mt-7 max-w-xl space-y-5 text-[15px] leading-relaxed text-muted-foreground md:text-base"
           >
             <p>
-              I specialise in <Em>agentic systems</Em>,{" "}
-              <Em>computer vision</Em>, and <Em>ML</Em> — from training and
-              fine-tuning to deploying models that hold up in production.
+              I build <Em>AI agents</Em> and the{" "}
+              <Em>distributed systems</Em> they run on: RAG pipelines that cite
+              their sources, multi-agent workflows, and backends that survive
+              load, crashes and duplicate data.
             </p>
             <p>
               I&apos;ve shipped <Em>RAG pipelines</Em>, fine-tuned{" "}
@@ -75,7 +76,8 @@ export function Hero() {
               <Em>agentic platforms</Em> from scratch across my internships.
             </p>
             <p>
-              I build things that <Em>actually run in production</Em>.
+              I build things that <Em>actually run in production</Em>, and I
+              prove it with benchmarks, not adjectives.
             </p>
             <p>
               <Em>Open to work</Em>: Full-time, Freelance, or Collabs.{" "}
@@ -87,6 +89,29 @@ export function Hero() {
               </a>
             </p>
           </motion.div>
+
+          {/* Headline numbers: each one checkable on GitHub or a live demo */}
+          <motion.dl
+            variants={item}
+            className="mt-8 grid max-w-xl grid-cols-2 gap-3 sm:grid-cols-4"
+          >
+            {stats.map((s) => (
+              <div
+                key={s.label}
+                className="rounded-lg border border-border bg-surface/40 px-3 py-2.5"
+              >
+                <dt className="sr-only">{s.label}</dt>
+                <dd>
+                  <span className="block font-mono text-lg text-foreground">
+                    {s.value}
+                  </span>
+                  <span className="mt-0.5 block text-[11px] leading-snug text-muted-foreground">
+                    {s.label}
+                  </span>
+                </dd>
+              </div>
+            ))}
+          </motion.dl>
 
           {/* Social icons, then resume button */}
           <motion.div
