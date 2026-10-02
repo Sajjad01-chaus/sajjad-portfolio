@@ -22,7 +22,7 @@ export function Experience() {
 
               <div className="rounded-2xl border border-border bg-surface/40 p-6 transition-colors hover:border-foreground/20 md:p-8">
                 <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-                  <h3 className="font-serif text-xl font-normal text-foreground md:text-2xl">
+                  <h3 className="font-display text-xl font-semibold text-foreground md:text-2xl">
                     {job.role}{" "}
                     <span className="text-muted-foreground">· {job.company}</span>
                   </h3>

@@ -16,7 +16,7 @@ function ProjectLinks({ project }: { project: Project }) {
           href={project.live}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-foreground transition-colors hover:text-muted-foreground"
+          className="inline-flex items-center gap-1.5 rounded-md bg-brand/10 px-3 py-1.5 font-medium text-brand transition-colors hover:bg-brand/20"
         >
           <ArrowUpRight className="size-4" /> Live demo
         </a>
@@ -26,7 +26,7 @@ function ProjectLinks({ project }: { project: Project }) {
           href={project.repo}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-foreground transition-colors hover:text-muted-foreground"
+          className="inline-flex items-center gap-2 text-foreground transition-colors hover:text-brand"
         >
           <GithubIcon className="size-4" /> Code
         </a>
@@ -39,29 +39,48 @@ function DomainTag({ project }: { project: Project }) {
   return (
     <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
       {project.domain}
-      {project.live ? <span className="ml-2 text-foreground/80">· live</span> : null}
+      {project.live ? (
+        <span className="ml-2 inline-flex items-center gap-1 text-emerald-400">
+          <span className="size-1.5 rounded-full bg-emerald-400" /> live
+        </span>
+      ) : null}
     </p>
+  );
+}
+
+function StackChips({ stack, className }: { stack: string[]; className?: string }) {
+  return (
+    <ul className={cn("flex flex-wrap gap-1.5", className)}>
+      {stack.map((s) => (
+        <li key={s} className="rounded-md border border-border bg-surface-2/60 px-2 py-0.5 font-mono text-[11px] text-foreground/80">
+          {s}
+        </li>
+      ))}
+    </ul>
   );
 }
 
 /** Large card: domain, title, story, the numbers that back it up, stack, links. */
 function FeaturedCard({ project }: { project: Project }) {
   return (
-    <article className="flex h-full flex-col rounded-2xl border border-border bg-surface/40 p-6 md:p-7">
+    <article className="glow-card group flex h-full flex-col overflow-hidden rounded-2xl p-6 md:p-7">
       {project.image ? (
-        <div
-          className="mb-6 aspect-[16/9] w-full overflow-hidden rounded-xl border border-border bg-surface"
-          style={{
-            backgroundImage: `url(${project.image})`,
-            backgroundSize: "cover",
-            backgroundPosition: "top center",
-          }}
-          aria-hidden
-        />
+        <div className="relative -mx-6 -mt-6 mb-6 aspect-[16/9] overflow-hidden border-b border-border md:-mx-7 md:-mt-7">
+          <div
+            className="absolute inset-0 transition-transform duration-500 group-hover:scale-[1.04]"
+            style={{
+              backgroundImage: `url(${project.image})`,
+              backgroundSize: "cover",
+              backgroundPosition: "top center",
+            }}
+            aria-hidden
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
+        </div>
       ) : null}
 
       <DomainTag project={project} />
-      <h3 className="mt-3 font-serif text-2xl font-normal leading-tight tracking-tight text-foreground">
+      <h3 className="mt-3 font-display text-2xl font-semibold leading-tight tracking-tight text-foreground">
         {project.title}
       </h3>
       <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">{project.description}</p>
@@ -69,10 +88,10 @@ function FeaturedCard({ project }: { project: Project }) {
       {project.metrics?.length ? (
         <dl className="mt-6 grid grid-cols-2 gap-3">
           {project.metrics.map((m) => (
-            <div key={m.label} className="rounded-lg border border-border bg-background/40 px-3 py-2.5">
+            <div key={m.label} className="rounded-lg border border-brand/15 bg-brand/[0.04] px-3 py-2.5">
               <dt className="sr-only">{m.label}</dt>
               <dd>
-                <span className="block font-mono text-lg text-foreground">{m.value}</span>
+                <span className="block font-display text-xl font-bold text-brand">{m.value}</span>
                 <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">{m.label}</span>
               </dd>
             </div>
@@ -80,7 +99,7 @@ function FeaturedCard({ project }: { project: Project }) {
         </dl>
       ) : null}
 
-      <p className="mt-6 text-sm font-medium text-foreground/80">{project.stack.join(" / ")}</p>
+      <StackChips stack={project.stack} className="mt-6" />
       <ProjectLinks project={project} />
     </article>
   );
@@ -89,16 +108,16 @@ function FeaturedCard({ project }: { project: Project }) {
 /** Compact card for the rest of the work. */
 function CompactCard({ project }: { project: Project }) {
   return (
-    <article className="flex h-full flex-col rounded-xl border border-border p-5">
+    <article className="glow-card flex h-full flex-col rounded-xl p-5">
       <DomainTag project={project} />
-      <h3 className="mt-2 text-lg font-medium leading-snug text-foreground">{project.title}</h3>
+      <h3 className="mt-2 font-display text-lg font-semibold leading-snug text-foreground">{project.title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{project.description}</p>
       {project.metrics?.length ? (
-        <p className="mt-3 font-mono text-xs text-foreground/80">
+        <p className="mt-3 font-mono text-xs text-brand">
           {project.metrics.map((m) => `${m.value} ${m.label}`).join(" · ")}
         </p>
       ) : null}
-      <p className="mt-3 text-xs text-foreground/70">{project.stack.join(" / ")}</p>
+      <StackChips stack={project.stack} className="mt-3" />
       <ProjectLinks project={project} />
     </article>
   );
@@ -133,8 +152,8 @@ export function Projects() {
               className={cn(
                 "rounded-full border px-4 py-1.5 font-mono text-[12px] transition-colors",
                 active
-                  ? "border-foreground bg-foreground text-background"
-                  : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground"
+                  ? "border-brand bg-brand text-primary-foreground"
+                  : "border-border text-muted-foreground hover:border-brand/50 hover:text-brand"
               )}
             >
               {d} <span className="opacity-60">{count}</span>
