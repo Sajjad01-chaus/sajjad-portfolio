@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 /** Section links shown above the hero photo (reference: About Me · Projects · …). */
 const items = [
   { id: "top", label: "About Me" },
+  { id: "approach", label: "Approach" },
   { id: "projects", label: "Projects" },
   { id: "contact", label: "Contact" },
 ];

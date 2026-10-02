@@ -71,7 +71,7 @@ export function Stack() {
       <div className="mx-auto w-full max-w-6xl px-6 md:px-12 lg:px-18">
         <Reveal className="mb-12 md:mb-14">
           <SectionTag>Stack</SectionTag>
-          <h2 className="mt-2.5 font-serif text-3xl font-normal tracking-tight text-foreground md:text-[2.6rem] md:leading-[1.1]">
+          <h2 className="mt-2.5 font-display text-3xl font-bold tracking-tight text-foreground md:text-[2.6rem] md:leading-[1.1]">
             Tools that I have used
           </h2>
         </Reveal>

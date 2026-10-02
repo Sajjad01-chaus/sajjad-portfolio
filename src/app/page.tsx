@@ -1,5 +1,6 @@
 import { ScrollProgress } from "@/components/scroll-progress";
 import { Hero } from "@/components/sections/hero";
+import { Principles } from "@/components/sections/principles";
 import { Experience } from "@/components/sections/experience";
 import { Projects } from "@/components/sections/projects";
 import { Stack } from "@/components/sections/stack";
@@ -12,6 +13,7 @@ export default function Home() {
       <ScrollProgress />
       <main>
         <Hero />
+        <Principles />
         <Stack />
         <Projects />
         <Experience />

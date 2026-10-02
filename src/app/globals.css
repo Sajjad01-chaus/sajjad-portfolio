@@ -24,7 +24,10 @@
   /* Fonts (wired to next/font variables in layout.tsx) */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-serif: var(--font-newsreader);
+  --font-serif: var(--font-space-grotesk);
+  --font-display: var(--font-space-grotesk);
+  --color-brand: var(--brand);
+  --color-brand-2: var(--brand-2);
 
   /* shadcn token surface */
   --color-card: var(--card);
@@ -51,54 +54,57 @@
 }
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-
-  --surface: #111111;
-  --surface-2: #161616;
-
-  --card: #111111;
-  --card-foreground: #ededed;
-  --popover: #161616;
-  --popover-foreground: #ededed;
-  /* near-white primary → white buttons with dark text */
-  --primary: #fafafa;
-  --primary-foreground: #0a0a0a;
-  --secondary: #161616;
-  --secondary-foreground: #ededed;
-  --muted: #161616;
-  --muted-foreground: #8a8a8a;
-  --accent: #1c1c1c;
-  --accent-foreground: #ededed;
+  --background: #070a12;
+  --foreground: #e8ecf5;
+  --surface: #0d1220;
+  --surface-2: #121a2b;
+  --card: #0d1220;
+  --card-foreground: #e8ecf5;
+  --popover: #121a2b;
+  --popover-foreground: #e8ecf5;
+  --primary: #00d9ff;
+  --primary-foreground: #04121a;
+  --secondary: #121a2b;
+  --secondary-foreground: #e8ecf5;
+  --muted: #121a2b;
+  --muted-foreground: #8b95aa;
+  --accent: #16203a;
+  --accent-foreground: #e8ecf5;
   --destructive: #ef4444;
-  --border: rgba(255, 255, 255, 0.09);
-  --input: rgba(255, 255, 255, 0.14);
-  --ring: rgba(255, 255, 255, 0.5);
+  --border: rgba(148, 170, 255, 0.11);
+  --input: rgba(148, 170, 255, 0.16);
+  --ring: rgba(0, 217, 255, 0.6);
+  /* Brand: cyan (matches the GitHub banner) blending into blue */
+  --brand: #00d9ff;
+  --brand-2: #5b8cff;
   --radius: 0.5rem;
 }
 
 /* keep .dark identical so shadcn's dark-variant utilities still resolve */
 .dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --surface: #111111;
-  --surface-2: #161616;
-  --card: #111111;
-  --card-foreground: #ededed;
-  --popover: #161616;
-  --popover-foreground: #ededed;
-  --primary: #fafafa;
-  --primary-foreground: #0a0a0a;
-  --secondary: #161616;
-  --secondary-foreground: #ededed;
-  --muted: #161616;
-  --muted-foreground: #8a8a8a;
-  --accent: #1c1c1c;
-  --accent-foreground: #ededed;
+  --background: #070a12;
+  --foreground: #e8ecf5;
+  --surface: #0d1220;
+  --surface-2: #121a2b;
+  --card: #0d1220;
+  --card-foreground: #e8ecf5;
+  --popover: #121a2b;
+  --popover-foreground: #e8ecf5;
+  --primary: #00d9ff;
+  --primary-foreground: #04121a;
+  --secondary: #121a2b;
+  --secondary-foreground: #e8ecf5;
+  --muted: #121a2b;
+  --muted-foreground: #8b95aa;
+  --accent: #16203a;
+  --accent-foreground: #e8ecf5;
   --destructive: #ef4444;
-  --border: rgba(255, 255, 255, 0.09);
-  --input: rgba(255, 255, 255, 0.14);
-  --ring: rgba(255, 255, 255, 0.5);
+  --border: rgba(148, 170, 255, 0.11);
+  --input: rgba(148, 170, 255, 0.16);
+  --ring: rgba(0, 217, 255, 0.6);
+  /* Brand: cyan (matches the GitHub banner) blending into blue */
+  --brand: #00d9ff;
+  --brand-2: #5b8cff;
 }
 
 @layer base {
@@ -116,24 +122,22 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "ss01", "cv01";
-    /* flat near-black with a single, barely-there top vignette for depth */
-    background-image: radial-gradient(
-      70rem 40rem at 50% -20%,
-      rgba(255, 255, 255, 0.025),
-      transparent 60%
-    );
+    /* deep navy with two soft brand glows for depth */
+    background-image:
+      radial-gradient(60rem 36rem at 10% -10%, rgba(0, 217, 255, 0.10), transparent 60%),
+      radial-gradient(56rem 34rem at 95% 0%, rgba(91, 140, 255, 0.10), transparent 60%);
     background-attachment: fixed;
     background-repeat: no-repeat;
   }
 
   ::selection {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(0, 217, 255, 0.3);
     color: #ffffff;
   }
 
   /* Focus visibility for keyboard users */
   :focus-visible {
-    outline: 2px solid rgba(255, 255, 255, 0.6);
+    outline: 2px solid rgba(0, 217, 255, 0.7);
     outline-offset: 2px;
     border-radius: 2px;
   }
@@ -143,6 +147,38 @@
   /* Small uppercase mono section tag look */
   .mono {
     font-family: var(--font-mono);
+  }
+
+  /* Brand gradient text (cyan -> blue) */
+  .text-gradient {
+    background: linear-gradient(90deg, var(--brand), var(--brand-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Card that lifts and glows on hover */
+  .glow-card {
+    background: linear-gradient(180deg, rgba(18, 26, 43, 0.75), rgba(13, 18, 32, 0.55));
+    border: 1px solid var(--border);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .glow-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 217, 255, 0.35);
+    box-shadow: 0 0 0 1px rgba(0, 217, 255, 0.08), 0 18px 50px -20px rgba(0, 217, 255, 0.35);
+  }
+
+  /* Primary call to action */
+  .btn-gradient {
+    background: linear-gradient(90deg, var(--brand), var(--brand-2));
+    color: #04121a;
+    box-shadow: 0 10px 30px -12px rgba(0, 217, 255, 0.6);
+    transition: filter 0.2s ease, transform 0.2s ease;
+  }
+  .btn-gradient:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
   }
 
   /* Faint grid texture used on a few surfaces */

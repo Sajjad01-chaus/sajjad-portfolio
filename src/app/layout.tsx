@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Newsreader } from "next/font/google";
+import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import { SmoothScroll } from "@/components/smooth-scroll";
@@ -18,12 +18,12 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-// Editorial serif for the name, section headings, and project titles.
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
+// Geometric display face for the hero, section headings, and project titles.
+const display = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
   display: "swap",
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0b",
+  themeColor: "#070a12",
   width: "device-width",
   initialScale: 1,
 };
@@ -91,7 +91,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${geistSans.variable} ${geistMono.variable} ${newsreader.variable} h-full`}
+      className={`dark ${geistSans.variable} ${geistMono.variable} ${display.variable} h-full`}
       suppressHydrationWarning
     >
       <body className="min-h-full">

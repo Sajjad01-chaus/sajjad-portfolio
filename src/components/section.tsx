@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 /** Small muted mono label that sits above a section heading. */
 export function SectionTag({ children }: { children: ReactNode }) {
   return (
-    <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+    <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-brand">
       {children}
     </span>
   );
@@ -35,7 +35,7 @@ export function Section({
       <div className="mx-auto w-full max-w-6xl px-6 md:px-12 lg:px-18">
         <Reveal className="mb-12 md:mb-14">
           {tag ? <SectionTag>{tag}</SectionTag> : null}
-          <h2 className="mt-2.5 font-serif text-3xl font-normal tracking-tight text-foreground md:text-[2.6rem] md:leading-[1.1]">
+          <h2 className="mt-2.5 font-display text-3xl font-bold tracking-tight text-foreground md:text-[2.6rem] md:leading-[1.1]">
             {heading}
           </h2>
           {intro ? (
